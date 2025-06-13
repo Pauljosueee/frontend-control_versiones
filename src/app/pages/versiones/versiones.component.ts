@@ -6,7 +6,8 @@ import {
   IonTitle,
   IonContent,
   IonList,
-  IonItem
+  IonItem,
+  IonMenuButton
 } from '@ionic/angular/standalone';
 import { ApiService } from '../../services/api.service';
 
@@ -20,24 +21,13 @@ import { ApiService } from '../../services/api.service';
     IonTitle,
     IonContent,
     IonList,
-    IonItem
+    IonItem,
+    IonMenuButton
   ],
-  template: `
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Versiones</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content>
-      <ion-list>
-        <ion-item *ngFor="let ver of versiones">
-          {{ ver.descripcion }}
-        </ion-item>
-      </ion-list>
-    </ion-content>
-  `
+  templateUrl: './versiones.component.html',
+  styleUrls: ['./versiones.component.scss']
 })
-export class VersionesPage implements OnInit {
+export class VersionesComponent implements OnInit {
   versiones: any[] = [];
 
   constructor(private apiService: ApiService) {}

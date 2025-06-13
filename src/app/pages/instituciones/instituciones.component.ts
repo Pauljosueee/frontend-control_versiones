@@ -6,7 +6,8 @@ import {
   IonTitle,
   IonContent,
   IonList,
-  IonItem
+  IonItem,
+  IonMenuButton
 } from '@ionic/angular/standalone';
 import { ApiService } from '../../services/api.service';
 
@@ -20,24 +21,13 @@ import { ApiService } from '../../services/api.service';
     IonTitle,
     IonContent,
     IonList,
-    IonItem
+    IonItem,
+    IonMenuButton
   ],
-  template: `
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Instituciones</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content>
-      <ion-list>
-        <ion-item *ngFor="let inst of instituciones">
-          {{ inst.nombre }} - {{ inst.fecha_contrato | date }}
-        </ion-item>
-      </ion-list>
-    </ion-content>
-  `
+  templateUrl: './instituciones.component.html',
+  styleUrls: ['./instituciones.component.scss']
 })
-export class InstitucionesPage implements OnInit {
+export class InstitucionesComponent implements OnInit {
   instituciones: any[] = [];
 
   constructor(private apiService: ApiService) {}

@@ -11,7 +11,7 @@ import {
 import { ApiService } from '../../services/api.service';
 
 @Component({
-  selector: 'app-proveedores',
+  selector: 'app-detalle',
   standalone: true,
   imports: [
     CommonModule,
@@ -22,29 +22,17 @@ import { ApiService } from '../../services/api.service';
     IonList,
     IonItem
   ],
-  template: `
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Proveedores</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content>
-      <ion-list>
-        <ion-item *ngFor="let prov of proveedores">
-          {{ prov.nombre }}
-        </ion-item>
-      </ion-list>
-    </ion-content>
-  `
+  templateUrl: './detalle.component.html',
+  styleUrls: ['./detalle.component.scss']
 })
-export class ProveedoresPage implements OnInit {
-  proveedores: any[] = [];
+export class DetalleComponent implements OnInit {
+  detalles: any[] = [];
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit() {
-    this.apiService.getProveedores().subscribe(data => {
-      this.proveedores = data;
+    this.apiService.getDetalles().subscribe(data => {
+      this.detalles = data;
     });
   }
 }

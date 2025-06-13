@@ -11,7 +11,7 @@ import {
 import { ApiService } from '../../services/api.service';
 
 @Component({
-  selector: 'app-detalle',
+  selector: 'app-cambios-aplicados',
   standalone: true,
   imports: [
     CommonModule,
@@ -22,29 +22,18 @@ import { ApiService } from '../../services/api.service';
     IonList,
     IonItem
   ],
-  template: `
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Detalle</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content>
-      <ion-list>
-        <ion-item *ngFor="let det of detalles">
-          {{ det.texto }}
-        </ion-item>
-      </ion-list>
-    </ion-content>
-  `
+  templateUrl: './cambios-aplicados.component.html',
+  styleUrls: ['./cambios-aplicados.component.scss']
 })
-export class DetallePage implements OnInit {
-  detalles: any[] = [];
+export class CambiosAplicadosComponent implements OnInit {
+  cambios: any[] = [];
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit() {
-    this.apiService.getDetalles().subscribe(data => {
-      this.detalles = data;
+    this.apiService.getCambiosAplicados().subscribe(data => {
+      this.cambios = data;
     });
   }
 }
+
