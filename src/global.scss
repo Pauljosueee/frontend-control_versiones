@@ -34,10 +34,14 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+// @import '@ionic/angular/css/palettes/dark.system.css';
 
-body, ion-content {
-  --background: #1f1f1f !important;
-  background: #000000 !important;
-  color: #000000;
+body,
+ion-content {
+  // --background: #1f1f1f !important;
+  // background: #000000 !important;
+  // color: #000000;
+  --background: #ffffff !important;
+  background: #ffffff !important;
+  color: #000000 !important;
 }
