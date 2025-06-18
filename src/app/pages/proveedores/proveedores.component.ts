@@ -13,6 +13,7 @@ import {
 } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
+import { HeaderLayoutComponent } from 'src/app/layout/header-layout/header-layout.component';
 
 @Component({
   selector: 'app-proveedores',
@@ -29,6 +30,7 @@ import { ApiService } from '../../services/api.service';
     IonMenuButton,
     IonButton,
     IonInput
+    HeaderLayoutComponent,
   ],
   templateUrl: './proveedores.component.html',
   styleUrls: ['./proveedores.component.scss']
@@ -39,7 +41,7 @@ export class ProveedoresComponent implements OnInit {
   proveedorForm = { id: null, nombre: '' };
   editando = false;
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) { }
 
   ngOnInit() {
     this.cargarProveedores();
@@ -62,18 +64,18 @@ export class ProveedoresComponent implements OnInit {
   }
 
   guardarProveedor() {
-  if (this.editando && this.proveedorForm.id !== null) {
-    this.apiService.updateProveedor(this.proveedorForm.id, { nombre: this.proveedorForm.nombre }).subscribe(() => {
-      this.cargarProveedores();
-      this.abrirFormularioNuevo();
-    });
-  } else {
-    this.apiService.createProveedor({ nombre: this.proveedorForm.nombre }).subscribe(() => {
-      this.cargarProveedores();
-      this.abrirFormularioNuevo();
-    });
+    if (this.editando && this.proveedorForm.id !== null) {
+      this.apiService.updateProveedor(this.proveedorForm.id, { nombre: this.proveedorForm.nombre }).subscribe(() => {
+        this.cargarProveedores();
+        this.abrirFormularioNuevo();
+      });
+    } else {
+      this.apiService.createProveedor({ nombre: this.proveedorForm.nombre }).subscribe(() => {
+        this.cargarProveedores();
+        this.abrirFormularioNuevo();
+      });
+    }
   }
-}
 
   eliminarProveedor(id: number) {
     if (confirm('¿Seguro que deseas eliminar este proveedor?')) {

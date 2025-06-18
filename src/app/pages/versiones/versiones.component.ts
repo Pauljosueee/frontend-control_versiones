@@ -10,6 +10,7 @@ import {
   IonMenuButton
 } from '@ionic/angular/standalone';
 import { ApiService } from '../../services/api.service';
+import { HeaderLayoutComponent } from 'src/app/layout/header-layout/header-layout.component';
 
 @Component({
   selector: 'app-versiones',
@@ -22,7 +23,8 @@ import { ApiService } from '../../services/api.service';
     IonContent,
     IonList,
     IonItem,
-    IonMenuButton
+    IonMenuButton,
+    HeaderLayoutComponent,
   ],
   templateUrl: './versiones.component.html',
   styleUrls: ['./versiones.component.scss']
@@ -30,7 +32,7 @@ import { ApiService } from '../../services/api.service';
 export class VersionesComponent implements OnInit {
   versiones: any[] = [];
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) { }
 
   ngOnInit() {
     this.apiService.getVersiones().subscribe(data => {

@@ -1,28 +1,5 @@
-<ion-app>
-  <ion-menu contentId="main-content">
-    <ion-header>
-      <ion-toolbar color="primary">
-        <ion-title>Menú</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content>
-      <ion-list>
-        <ion-menu-toggle>
-        <ion-item button routerLink="/proveedores" routerDi    rection="root">
-          Proveedores
-        </ion-item>
-        <ion-item button routerLink="/instituciones" routerDirection="root">
-          Instituciones
-        </ion-item>
-        <ion-item button routerLink="/versiones" routerDirection="root">
-          Versiones
-        </ion-item>
-        </ion-menu-toggle>
-      </ion-list>
-    </ion-content>
-  </ion-menu>
+<app-main-menu />
 
-  <div class="ion-page" id="main-content">
-    <ion-router-outlet></ion-router-outlet>
-  </div>
-</ion-app>
+<div class="ion-page" id="main-content">
+  <ion-router-outlet></ion-router-outlet>
+</div>

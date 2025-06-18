@@ -7,7 +7,7 @@ import { DetalleComponent } from './pages/detalle/detalle.component';
 
 export const routes: Routes = [
   { path: 'proveedores', component: ProveedoresComponent },
-  { path: 'instituciones', component: InstitucionesComponent   },
+  { path: 'instituciones', component: InstitucionesComponent },
   { path: 'versiones', component: VersionesComponent },
   { path: 'cambios-aplicados', component: CambiosAplicadosComponent },
   { path: 'detalle', component: DetalleComponent },

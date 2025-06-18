@@ -13,6 +13,7 @@ import {
 } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
+import { HeaderLayoutComponent } from 'src/app/layout/header-layout/header-layout.component';
 
 @Component({
   selector: 'app-instituciones',
@@ -29,6 +30,7 @@ import { ApiService } from '../../services/api.service';
     IonMenuButton,
     IonButton,
     IonInput
+    HeaderLayoutComponent
   ],
   templateUrl: './instituciones.component.html',
   styleUrls: ['./instituciones.component.scss']
@@ -38,7 +40,7 @@ export class InstitucionesComponent implements OnInit {
   institucionForm = { id: null, nombre: '', fecha_contrato: '' };
   editando = false;
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) { }
 
   ngOnInit() {
     this.cargarInstituciones();
@@ -57,26 +59,26 @@ export class InstitucionesComponent implements OnInit {
 
   abrirFormularioEditar(inst: any) {
     this.editando = true;
-    this.institucionForm = { 
-      id: inst.id, 
-      nombre: inst.nombre, 
-      fecha_contrato: inst.fecha_contrato ? inst.fecha_contrato.substring(0, 10) : '' 
+    this.institucionForm = {
+      id: inst.id,
+      nombre: inst.nombre,
+      fecha_contrato: inst.fecha_contrato ? inst.fecha_contrato.substring(0, 10) : ''
     };
   }
 
   guardarInstitucion() {
     if (this.editando && this.institucionForm.id !== null) {
-      this.apiService.updateInstitucion(this.institucionForm.id, { 
-        nombre: this.institucionForm.nombre, 
-        fecha_contrato: this.institucionForm.fecha_contrato 
+      this.apiService.updateInstitucion(this.institucionForm.id, {
+        nombre: this.institucionForm.nombre,
+        fecha_contrato: this.institucionForm.fecha_contrato
       }).subscribe(() => {
         this.cargarInstituciones();
         this.abrirFormularioNuevo();
       });
     } else {
-      this.apiService.createInstitucion({ 
-        nombre: this.institucionForm.nombre, 
-        fecha_contrato: this.institucionForm.fecha_contrato 
+      this.apiService.createInstitucion({
+        nombre: this.institucionForm.nombre,
+        fecha_contrato: this.institucionForm.fecha_contrato
       }).subscribe(() => {
         this.cargarInstituciones();
         this.abrirFormularioNuevo();
