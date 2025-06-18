@@ -29,7 +29,7 @@ import { HeaderLayoutComponent } from 'src/app/layout/header-layout/header-layou
     IonItem,
     IonMenuButton,
     IonButton,
-    IonInput
+    IonInput,
     HeaderLayoutComponent
   ],
   templateUrl: './instituciones.component.html',
@@ -67,19 +67,29 @@ export class InstitucionesComponent implements OnInit {
   }
 
   guardarInstitucion() {
+    const fecha = new Date(this.institucionForm.fecha_contrato);
+
+    if (isNaN(fecha.getTime())) {
+      alert('Fecha inválida');
+      return;
+    }
+
+    const payload = {
+      nombre: this.institucionForm.nombre,
+      fecha_contrato: fecha.toISOString(), // ✅ conversión aquí
+      proveedor: 1,
+    };
+
+    console.log(payload);
+    
+
     if (this.editando && this.institucionForm.id !== null) {
-      this.apiService.updateInstitucion(this.institucionForm.id, {
-        nombre: this.institucionForm.nombre,
-        fecha_contrato: this.institucionForm.fecha_contrato
-      }).subscribe(() => {
+      this.apiService.updateInstitucion(this.institucionForm.id, payload).subscribe(() => {
         this.cargarInstituciones();
         this.abrirFormularioNuevo();
       });
     } else {
-      this.apiService.createInstitucion({
-        nombre: this.institucionForm.nombre,
-        fecha_contrato: this.institucionForm.fecha_contrato
-      }).subscribe(() => {
+      this.apiService.createInstitucion(payload).subscribe(() => {
         this.cargarInstituciones();
         this.abrirFormularioNuevo();
       });

@@ -29,7 +29,7 @@ import { HeaderLayoutComponent } from 'src/app/layout/header-layout/header-layou
     IonItem,
     IonMenuButton,
     IonButton,
-    IonInput
+    IonInput,
     HeaderLayoutComponent,
   ],
   templateUrl: './proveedores.component.html',

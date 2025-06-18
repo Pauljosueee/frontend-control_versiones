@@ -16,7 +16,7 @@ export class MainMenuComponent implements OnInit {
     { title: 'Proveedores', url: '/proveedores', icon: 'people' },
     { title: 'Instituciones', url: '/instituciones', icon: 'business' },
     { title: 'Versiones', url: '/versiones', icon: 'git-branch' },
-    { title: 'Versiones', url: '/hola', icon: 'git-branch' },
+    // { title: 'Versiones', url: '/hola', icon: 'git-branch' },
   ];
 
   constructor() { }
