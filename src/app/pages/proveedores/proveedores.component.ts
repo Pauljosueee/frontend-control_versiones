@@ -9,8 +9,8 @@ import {
   IonItem,
   IonMenuButton,
   IonButton,
-  IonInput
-} from '@ionic/angular/standalone';
+  IonInput,
+  IonModal, IonButtons } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { HeaderLayoutComponent } from 'src/app/layout/header-layout/header-layout.component';
@@ -18,7 +18,7 @@ import { HeaderLayoutComponent } from 'src/app/layout/header-layout/header-layou
 @Component({
   selector: 'app-proveedores',
   standalone: true,
-  imports: [
+  imports: [IonButtons, 
     CommonModule,
     FormsModule,
     IonHeader,
@@ -30,18 +30,19 @@ import { HeaderLayoutComponent } from 'src/app/layout/header-layout/header-layou
     IonMenuButton,
     IonButton,
     IonInput,
-    HeaderLayoutComponent,
+    IonModal,
+    HeaderLayoutComponent
   ],
   templateUrl: './proveedores.component.html',
   styleUrls: ['./proveedores.component.scss']
 })
 export class ProveedoresComponent implements OnInit {
   proveedores: any[] = [];
-  // Para el formulario
   proveedorForm = { id: null, nombre: '' };
   editando = false;
+  mostrarModal = false;
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService) {}
 
   ngOnInit() {
     this.cargarProveedores();
@@ -56,23 +57,36 @@ export class ProveedoresComponent implements OnInit {
   abrirFormularioNuevo() {
     this.editando = false;
     this.proveedorForm = { id: null, nombre: '' };
+    this.mostrarModal = true;
   }
 
   abrirFormularioEditar(prov: any) {
     this.editando = true;
     this.proveedorForm = { id: prov.id, nombre: prov.nombre };
+    this.mostrarModal = true;
+  }
+
+  cerrarModal() {
+    this.mostrarModal = false;
   }
 
   guardarProveedor() {
+    if (!this.proveedorForm.nombre.trim()) {
+      alert('El nombre es requerido');
+      return;
+    }
+
+    const payload = { nombre: this.proveedorForm.nombre };
+
     if (this.editando && this.proveedorForm.id !== null) {
-      this.apiService.updateProveedor(this.proveedorForm.id, { nombre: this.proveedorForm.nombre }).subscribe(() => {
+      this.apiService.updateProveedor(this.proveedorForm.id, payload).subscribe(() => {
         this.cargarProveedores();
-        this.abrirFormularioNuevo();
+        this.cerrarModal();
       });
     } else {
-      this.apiService.createProveedor({ nombre: this.proveedorForm.nombre }).subscribe(() => {
+      this.apiService.createProveedor(payload).subscribe(() => {
         this.cargarProveedores();
-        this.abrirFormularioNuevo();
+        this.cerrarModal();
       });
     }
   }

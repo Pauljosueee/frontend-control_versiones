@@ -9,8 +9,8 @@ import {
   IonItem,
   IonMenuButton,
   IonButton,
-  IonInput
-} from '@ionic/angular/standalone';
+  IonInput,
+  IonModal, IonButtons } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { HeaderLayoutComponent } from 'src/app/layout/header-layout/header-layout.component';
@@ -18,7 +18,7 @@ import { HeaderLayoutComponent } from 'src/app/layout/header-layout/header-layou
 @Component({
   selector: 'app-instituciones',
   standalone: true,
-  imports: [
+  imports: [IonButtons, 
     CommonModule,
     FormsModule,
     IonHeader,
@@ -30,6 +30,7 @@ import { HeaderLayoutComponent } from 'src/app/layout/header-layout/header-layou
     IonMenuButton,
     IonButton,
     IonInput,
+    IonModal,
     HeaderLayoutComponent
   ],
   templateUrl: './instituciones.component.html',
@@ -39,8 +40,9 @@ export class InstitucionesComponent implements OnInit {
   instituciones: any[] = [];
   institucionForm = { id: null, nombre: '', fecha_contrato: '' };
   editando = false;
+  mostrarModal = false;
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService) {}
 
   ngOnInit() {
     this.cargarInstituciones();
@@ -55,6 +57,7 @@ export class InstitucionesComponent implements OnInit {
   abrirFormularioNuevo() {
     this.editando = false;
     this.institucionForm = { id: null, nombre: '', fecha_contrato: '' };
+    this.mostrarModal = true;
   }
 
   abrirFormularioEditar(inst: any) {
@@ -64,6 +67,11 @@ export class InstitucionesComponent implements OnInit {
       nombre: inst.nombre,
       fecha_contrato: inst.fecha_contrato ? inst.fecha_contrato.substring(0, 10) : ''
     };
+    this.mostrarModal = true;
+  }
+
+  cerrarModal() {
+    this.mostrarModal = false;
   }
 
   guardarInstitucion() {
@@ -76,22 +84,19 @@ export class InstitucionesComponent implements OnInit {
 
     const payload = {
       nombre: this.institucionForm.nombre,
-      fecha_contrato: fecha.toISOString(), // ✅ conversión aquí
-      proveedor: 1,
+      fecha_contrato: fecha.toISOString(),
+      proveedor: 1 // puedes ajustar esto según tu lógica
     };
-
-    console.log(payload);
-    
 
     if (this.editando && this.institucionForm.id !== null) {
       this.apiService.updateInstitucion(this.institucionForm.id, payload).subscribe(() => {
         this.cargarInstituciones();
-        this.abrirFormularioNuevo();
+        this.cerrarModal();
       });
     } else {
       this.apiService.createInstitucion(payload).subscribe(() => {
         this.cargarInstituciones();
-        this.abrirFormularioNuevo();
+        this.cerrarModal();
       });
     }
   }
